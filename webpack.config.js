@@ -43,9 +43,12 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        onboarding:'onboarding@http://localhost:3001/remoteEntry.js'
+      },
       exposes: {
-        ".Header":"./src/components/Header"
+        "./Header":"./src/components/Header",
+        "./OnboardingLayout":"./src/layouts/OnboardingLayout"
       },
       shared: {
         ...deps,

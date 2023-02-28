@@ -11,8 +11,17 @@ const toastType = {
     },
     success: { icon: 'mdi:success-circle', class: 'text-green-400' }
 }
+const headers = {
+    "Content-Type": "application/json",
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Credentials': 'true',
+};
 const createUser = async (data: { email: string }) => {
-    const { data: response } = await axios.post('http://localhost:3000/api/v1/user', data);
+    const { data: response } = await axios.post('https://dummyjson.com/auth/login', {
+        username: 'kminchelle',
+        password: '0lelplR',
+        // expiresInMins: 60, // optional
+    }, { headers });
     return response.data;
 };
 const getLoginOptions = async () => {

@@ -11,18 +11,30 @@ const toastType = {
     },
     success: { icon: 'mdi:success-circle', class: 'text-green-400' }
 }
-const headers = {
-    "Content-Type": "application/json",
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
-    'Access-Control-Allow-Credentials': 'true',
-};
+// const headers = {
+//     "Content-Type": "application/json",
+//     'Access-Control-Allow-Origin': 'http://localhost:3000',
+//     'Access-Control-Allow-Credentials': 'true',
+// };
 const createUser = async (data: { email: string }) => {
-    const { data: response } = await axios.post('https://dummyjson.com/auth/login', {
-        username: 'kminchelle',
-        password: '0lelplR',
-        // expiresInMins: 60, // optional
-    }, { headers });
-    return response.data;
+    const response2 = await fetch('https://dummyjson.com/auth/login', {
+        method: 'POST',
+        headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: 'kminchelle',
+            password: '0lelplR',
+            // expiresInMins: 60, // optional
+        }),
+    })
+    // const { data: response } = await axios.post('https://dummyjson.com/auth/login', {
+    //     username: 'kminchelle',
+    //     password: '0lelplR',
+    //     // expiresInMins: 60, // optional
+    // }, { headers });
+    return response2;
 };
 const getLoginOptions = async () => {
     const { data } = await axios.get('http://localhost:3000/api/v1/loginOptions/org/:orgId');

@@ -3,6 +3,7 @@ import { notification } from "antd";
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import { LandingPageBanner, LoginForm } from '../components';
+import Copyright from "../components/Copyright/Copyright";
 const toastType = {
     error: {
         icon: 'ic:round-error',
@@ -69,6 +70,7 @@ const Signup = () => {
             <LandingPageBanner />
             <div className='flex flex-col flex-1 items-center justify-center'>
                 <LoginForm email={email} mutate={mutate} setEmail={setEmail} />
+                <Copyright />
             </div>
         </div>
     )

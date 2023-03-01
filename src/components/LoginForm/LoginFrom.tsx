@@ -16,7 +16,7 @@ export const LoginForm = ({ setEmail, email, mutate }) => {
 
             </div>
 
-            <p className='text-sm text-center mt-7'>Already have an account? <a className='text-geekblue-600' href="#">Log In</a></p>
+            <p className='text-sm text-center mt-3'>Already have an account? <a className='text-geekblue-600' href="#">Log In</a></p>
         </div>
     )
 }

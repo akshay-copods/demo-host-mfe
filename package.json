@@ -47,5 +47,8 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "prettier": {
+    "tabWidth": 2
   }
 }

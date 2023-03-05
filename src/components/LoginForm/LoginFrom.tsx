@@ -11,7 +11,7 @@ export const LoginForm = ({ setEmail, email, mutate }) => {
             <div className='gap-10 flex flex-col'>
                 <InputField value={email} onChange={setEmail} />
 
-                <Button onClick={() => mutate(email)} className='bg-geekblue-600 rounded-sm w-full' type="primary">Continue</Button>
+                <Button disabled={!email} onClick={() => mutate(email)} className='bg-geekblue-600 rounded-sm w-full' type="primary">Continue</Button>
 
 
             </div>

@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { notification } from "antd";
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from "react-router-dom";
 import { LandingPageBanner, LoginForm } from '../components';
 import Copyright from "../components/Copyright/Copyright";
 const toastType = {
@@ -11,11 +12,7 @@ const toastType = {
     },
     success: { icon: 'mdi:success-circle', class: 'text-green-400' }
 }
-// const headers = {
-//     "Content-Type": "application/json",
-//     'Access-Control-Allow-Origin': 'http://localhost:3000',
-//     'Access-Control-Allow-Credentials': 'true',
-// };
+
 const createUser = async (data: { email: string }) => {
     const response2 = await fetch('https://dummyjson.com/auth/login', {
         method: 'POST',
@@ -29,20 +26,13 @@ const createUser = async (data: { email: string }) => {
             // expiresInMins: 60, // optional
         }),
     })
-    // const { data: response } = await axios.post('https://dummyjson.com/auth/login', {
-    //     username: 'kminchelle',
-    //     password: '0lelplR',
-    //     // expiresInMins: 60, // optional
-    // }, { headers });
+
     return response2;
 };
-// const getLoginOptions = async () => {
-//     const { data } = await axios.get('http://localhost:3000/api/v1/loginOptions/org/:orgId');
-//     return data.data;
-// };
+
 const Signup = () => {
     // const { data } = useQuery('create', getLoginOptions);
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [api, contextHolder] = notification.useNotification();
     const openNotification = (message: string, type: { icon: string, class: string }) => {
@@ -55,10 +45,16 @@ const Signup = () => {
     };
 
     const { mutate, isLoading } = useMutation(createUser, {
-        onSuccess: data => {
-            console.log(data);
+        onSuccess: async data => {
+            console.log(data)
             const message = "success"
-            openNotification('Signed up Successfully', toastType.success)
+            data.status === 200 && openNotification('Signed up Successfully', toastType.success)
+            data.status === 400 && openNotification("there was an error", toastType.error)
+            const response = await data.json()
+            localStorage.setItem('id', response.id)
+            navigate('on-boarding', { replace: true })
+
+
         },
         onError: () => {
             openNotification("there was an error", toastType.error)

@@ -602,7 +602,7 @@ export const handlers = [
 //       ctx.status(201)
 //     )
 //   }),
-  rest.get('api/v1/loginOptions/org/:orgId',(req, res, ctx) => {
+  rest.get('http://localhost:5381/v1/GetSignupOptions',(req, res, ctx) => {
     const {orgId}= req.params
    
     return res ( 

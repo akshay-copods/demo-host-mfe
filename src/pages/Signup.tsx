@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { notification } from "antd";
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { LandingPageBanner, LoginForm } from '../components';
 import Copyright from "../components/Copyright/Copyright";
@@ -12,6 +12,11 @@ const toastType = {
     },
     success: { icon: 'mdi:success-circle', class: 'text-green-400' }
 }
+const fetchSignupOptions = async () => {
+    const res = await fetch("http://localhost:5381/v1/GetSignupOptions");
+    return res.json();
+};
+
 
 const createUser = async (data: { email: string }) => {
     const response2 = await fetch('https://dummyjson.com/auth/login', {
@@ -31,7 +36,6 @@ const createUser = async (data: { email: string }) => {
 };
 
 const Signup = () => {
-    // const { data } = useQuery('create', getLoginOptions);
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [api, contextHolder] = notification.useNotification();
@@ -43,10 +47,11 @@ const Signup = () => {
             duration: 2,
         });
     };
+    const { data } = useQuery('options', fetchSignupOptions)
+
 
     const { mutate, isLoading } = useMutation(createUser, {
         onSuccess: async data => {
-            console.log(data)
             const message = "success"
             data.status === 200 && openNotification('Signed up Successfully', toastType.success)
             data.status === 400 && openNotification("there was an error", toastType.error)
@@ -65,7 +70,7 @@ const Signup = () => {
             {contextHolder}
             <LandingPageBanner />
             <div className='flex flex-col flex-1 items-center justify-center'>
-                <LoginForm email={email} mutate={mutate} setEmail={setEmail} />
+                <LoginForm data={data} email={email} mutate={mutate} setEmail={setEmail} />
                 <Copyright />
             </div>
         </div>

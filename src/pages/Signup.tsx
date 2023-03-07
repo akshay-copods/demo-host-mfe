@@ -17,6 +17,9 @@ const fetchSignupOptions = async () => {
     return res.json();
 };
 
+const socialLogin = async (name) => {
+    console.log(name, 'is starting')
+}
 
 const createUser = async (data: { email: string }) => {
     const response2 = await fetch('https://dummyjson.com/auth/login', {
@@ -70,7 +73,7 @@ const Signup = () => {
             {contextHolder}
             <LandingPageBanner />
             <div className='flex flex-col flex-1 items-center justify-center'>
-                <LoginForm data={data} email={email} mutate={mutate} setEmail={setEmail} />
+                <LoginForm socialLogin={socialLogin} data={data} email={email} mutate={mutate} setEmail={setEmail} />
                 <Copyright />
             </div>
         </div>

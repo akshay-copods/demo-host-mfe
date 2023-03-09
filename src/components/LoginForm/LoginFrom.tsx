@@ -6,6 +6,7 @@ import { InputField } from "../InputField/InputField";
 
 export const LoginForm = ({ data, setEmail, email, mutate }) => {
     return (
+        console.log("data",data),
         <div className='w-[442px] flex flex-col'>
             <h2 className='font-medium text-2xl mb-6'>Welcome to Stealth SaaS!</h2>
             <div className='gap-10 flex flex-col'>
@@ -19,7 +20,7 @@ export const LoginForm = ({ data, setEmail, email, mutate }) => {
                     <span className="h-[1px] bg-gray-200 w-full"></span>{" "}
                 </div>
                 <div className="flex gap-4">
-                    {data?.data?.social_options?.map((option, i) => (
+                    {data?.social_options?.map((option, i) => (
                         <Button
                             key={i}
                             icon={<Icon icon={option?.icon} />}

@@ -13,25 +13,31 @@ const toastType = {
     success: { icon: 'mdi:success-circle', class: 'text-green-400' }
 }
 const fetchSignupOptions = async () => {
-    const res = await fetch("http://localhost:5381/v1/GetSignupOptions");
-    return res.json();
-};
-
-
-const createUser = async (data: { email: string }) => {
-    const response2 = await fetch('https://dummyjson.com/auth/login', {
+    const response2 = await fetch('http://localhost:5381/v1/GetSignupOptions', {
         method: 'POST',
         headers: {
             Accept: 'application.json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: 'kminchelle',
-            password: '0lelplR',
-            // expiresInMins: 60, // optional
+            org_id:"0"
         }),
     })
+    return response2.json();
+};
 
+
+const createUser = async (data: { email: string }) => {
+    const response2 = await fetch('http://localhost:5381/v1/CreateUser', {
+        method: 'POST',
+        headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            EmailId:data.toString()
+        }),
+    })
     return response2;
 };
 

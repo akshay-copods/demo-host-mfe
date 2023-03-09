@@ -4,7 +4,7 @@ import React from 'react';
 import { InputField } from "../InputField/InputField";
 
 
-export const LoginForm = ({ data, setEmail, email, mutate }) => {
+export const LoginForm = ({ socialLogin, data, setEmail, email, mutate }) => {
     return (
         console.log("data",data),
         <div className='w-[442px] flex flex-col'>
@@ -22,6 +22,7 @@ export const LoginForm = ({ data, setEmail, email, mutate }) => {
                 <div className="flex gap-4">
                     {data?.social_options?.map((option, i) => (
                         <Button
+                            onClick={() => socialLogin(option.name)}
                             key={i}
                             icon={<Icon icon={option?.icon} />}
                             className="border-geekblue gap-2 flex-1 rounded-sm flex items-center justify-center"
